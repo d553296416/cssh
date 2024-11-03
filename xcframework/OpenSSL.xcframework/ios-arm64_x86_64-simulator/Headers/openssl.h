@@ -68,6 +68,7 @@
 #include <openssl/http.h>
 #include <openssl/httperr.h>
 #include <openssl/idea.h>
+#include <openssl/indicator.h>
 #include <openssl/kdf.h>
 #include <openssl/kdferr.h>
 #include <openssl/lhash.h>
@@ -132,6 +133,7 @@
 #include <openssl/uierr.h>
 #include <openssl/whrlpool.h>
 #include <openssl/x509.h>
+#include <openssl/x509_acert.h>
 #include <openssl/x509_vfy.h>
 #include <openssl/x509err.h>
 #include <openssl/x509v3.h>
