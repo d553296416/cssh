@@ -3,9 +3,6 @@ libssh2 + OpenSSL + wolfSS
 
 OpenSSL 支持公钥转OpenSSH格式
 
-只编译了libcrypto并未编译libssl
-
-
 
 SSH Term APP [ssh2.app](https://ssh2.app/) 的 SSH2连接核心
 
