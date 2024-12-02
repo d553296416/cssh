@@ -10,11 +10,14 @@ OpenSSL 支持公钥转OpenSSH格式
 SSH Term APP [ssh2.app](https://ssh2.app/) 的 SSH2连接核心
 
 # 使用 OpenSSL 版
-
+不包括libssl，占用空间小
 ```
 pod 'CSSH/OpenSSL', :git => 'https://github.com/sshterm/cssh.git'
 ```
-
+使用完整的OpenSSL包括libssl
+```
+pod 'CSSH/OpenSSLFull', :git => 'https://github.com/sshterm/cssh.git'
+```
 # 使用 wolfSSL 版
 
 ```
