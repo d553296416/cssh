@@ -207,7 +207,6 @@ char *sshkey_rsa_pub(EVP_PKEY *pkey)
     ssh_public_key = (char *)malloc(ssh_public_key_len);
     if (!ssh_public_key)
     {
-        free(b64_pub_key);
         goto cleanup;
     }
 
