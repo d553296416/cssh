@@ -10,6 +10,10 @@ SSH Term APP [ssh2.app](https://ssh2.app/) 的 SSH2连接核心
 ```
 pod 'CSSH/OpenSSL', :git => 'https://github.com/sshterm/cssh.git'
 ```
+使用完整的OpenSSL包括libssl
+```
+pod 'CSSH/OpenSSLFull', :git => 'https://github.com/sshterm/cssh.git'
+```
 # 使用 wolfSSL 版
 
 ```
