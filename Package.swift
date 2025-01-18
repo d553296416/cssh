@@ -12,10 +12,16 @@ let package = Package(
     products: [
         .library(
             name: "CSSH",
-            targets: ["CSSH"]
+            targets: ["CSSH", "SSHKey"]
         ),
     ],
     targets: [
+        .target(
+            name: "SSHKey",
+            exclude: ["dns.h", "dns.c"],
+            dependencies: ["CSSH"],
+            path: "src"
+        ),
         .binaryTarget(
             name: "CSSH",
             path: "xcframework/CSSH.xcframework"
