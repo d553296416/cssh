@@ -14,19 +14,24 @@ let package = Package(
             name: "CSSH",
             targets: ["CSSH"]
         ),
+        .library(
+            name: "SSHKey",
+            targets: ["SSHKey"]
+        ),
     ],
+    dependencies: [],
     targets: [
         .target(
-            name: "CSSH",
-            exclude: ["dns.h", "dns.c"],
-            dependencies: ["CSSHOpenSSL"],
+            name: "SSHKey",
+            dependencies: ["CSSH"],
             path: "src",
+            exclude: ["dns.h", "dns.c"],
             linkerSettings: [
                 .linkedLibrary("z"),
             ]
         ),
         .binaryTarget(
-            name: "CSSHOpenSSL",
+            name: "CSSH",
             path: "xcframework/CSSH.xcframework"
         )
     ],
