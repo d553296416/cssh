@@ -20,7 +20,10 @@ let package = Package(
             name: "SSHKey",
             exclude: ["dns.h", "dns.c"],
             dependencies: ["CSSH"],
-            path: "src"
+            path: "src",
+            linkerSettings: [
+                .linkedLibrary("z"),
+            ]
         ),
         .binaryTarget(
             name: "CSSH",
