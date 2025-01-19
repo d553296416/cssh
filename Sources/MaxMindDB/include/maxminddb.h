@@ -1,14 +1,13 @@
 //
-//  Header.h
+//  MaxMindDB.h
 //  CSSH
 //
 //  Created by 费三量 on 2025/1/19.
 //
 
-#ifndef Header_h
-#define Header_h
+#ifndef MaxMindDB_h
+#define MaxMindDB_h
 
-#import "../maxminddb-compat-util.h"
-#import "../maxminddb.h"
+#include "../mmdb.h"
 
-#endif /* Header_h */
+#endif /* MaxMindDB_h */
