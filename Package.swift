@@ -24,8 +24,6 @@ let package = Package(
         .target(
             name: "SSHKey",
             dependencies: ["CSSH"],
-            path: "src",
-            exclude: ["dns.h", "dns.c"],
             linkerSettings: [
                 .linkedLibrary("z"),
             ]
