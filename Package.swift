@@ -18,6 +18,10 @@ let package = Package(
             name: "SSHKey",
             targets: ["SSHKey"]
         ),
+        .library(
+            name: "OpenSSL",
+            targets: ["OpenSSL"]
+        ),
     ],
     dependencies: [],
     targets: [
