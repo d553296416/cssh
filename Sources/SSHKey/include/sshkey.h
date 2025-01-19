@@ -4,7 +4,6 @@
 
 #ifndef sshkey_h
 #define sshkey_h
-
 #include <string.h>
 #include <openssl/buffer.h>
 #include <openssl/evp.h>

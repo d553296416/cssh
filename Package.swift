@@ -43,6 +43,7 @@ let package = Package(
                 .define("HAVE_LIBZ"),
                 .define("LIBSSH2_HAVE_ZLIB"),
                 .define("LIBSSH2_OPENSSL"),
+                // .define("LIBSSH2_WOLFSSL"),
                 .define("LIBSSH2DEBUG"),
                 .define("STDC_HEADERS"),
                 .define("WORDS_BIGENDIAN"),
@@ -72,6 +73,10 @@ let package = Package(
                 .linkedLibrary("z"),
             ]
         ),
+//        .binaryTarget(
+//            name: "wolfSSL",
+//            path: "xcframework/wolfSSL.xcframework"
+//        ),
         .binaryTarget(
             name: "OpenSSL",
             path: "xcframework/OpenSSL.xcframework"
