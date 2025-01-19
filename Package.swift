@@ -34,6 +34,5 @@ let package = Package(
             name: "CSSH",
             path: "xcframework/CSSH.xcframework"
         )
-    ],
-    swiftLanguageVersions: [.v5]
+    ]
 )
