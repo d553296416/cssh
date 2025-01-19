@@ -23,13 +23,17 @@ let package = Package(
     targets: [
         .target(
             name: "SSHKey",
-            dependencies: ["CSSH"],
+            dependencies: ["OpenSSL"]
+        ),
+        .target(
+            name: "CSSH",
+            dependencies: ["OpenSSL"],
             linkerSettings: [
                 .linkedLibrary("z"),
             ]
         ),
         .binaryTarget(
-            name: "CSSH",
+            name: "OpenSSL",
             path: "xcframework/CSSH.xcframework"
         )
     ]
