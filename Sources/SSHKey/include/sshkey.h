@@ -9,29 +9,39 @@
 #include <openssl/buffer.h>
 #include <openssl/evp.h>
 
-// 函数：sshkey_ed25519_pub
-// 功能：从给定的EVP_PKEY结构体中提取Ed25519公钥，并将其转换为字符串格式返回。
-// 参数：
-//   pkey - 指向EVP_PKEY结构体的指针，该结构体包含Ed25519密钥对。
-// 返回值：
-//   成功时返回表示Ed25519公钥的字符串指针；失败时返回NULL。
-
+/**
+ * @brief Extracts the ED25519 public key from the given EVP_PKEY structure.
+ *
+ * This function takes an EVP_PKEY structure containing an ED25519 key and
+ * extracts the public key from it. The public key is returned as a
+ * null-terminated string.
+ *
+ * @param pkey A pointer to an EVP_PKEY structure containing the ED25519 key.
+ * @return A pointer to a null-terminated string containing the ED25519 public key.
+ *         The caller is responsible for freeing the allocated memory.
+ */
 char *sshkey_ed25519_pub(EVP_PKEY *pkey);
 
-// 函数：sshkey_rsa_pub
-// 功能：从给定的EVP_PKEY结构体中提取RSA公钥，并将其转换为字符串格式返回。
-// 参数：
-//   pkey - 指向EVP_PKEY结构体的指针，该结构体包含RSA密钥对。
-// 返回值：
-//   成功时返回表示RSA公钥的字符串指针；失败时返回NULL。
+/**
+ * @brief Retrieves the RSA public key from the given EVP_PKEY structure.
+ *
+ * This function extracts the RSA public key from the provided EVP_PKEY
+ * structure and returns it as a string.
+ *
+ * @param pkey A pointer to an EVP_PKEY structure containing the RSA key.
+ * @return A string containing the RSA public key. The caller is responsible
+ *         for freeing the returned string.
+ */
 char *sshkey_rsa_pub(EVP_PKEY *pkey);
 
-// sshkey_pub 函数用于导出给定 EVP_PKEY 对象的 SSH 公钥。
-// 参数:
-//   pkey: 指向 EVP_PKEY 对象的指针，该对象包含要导出的私钥。
-//   key_type: 指定要导出的公钥类型，例如 "ssh-ed25519" 或 "ssh-rsa"。
-// 返回值:
-//   成功时返回一个指向导出的公钥字符串的指针，失败时返回 NULL。
+/**
+ * @brief Generates a public SSH key in the specified format.
+ *
+ * @param pkey A pointer to an EVP_PKEY structure containing the private key.
+ * @param key_type A string specifying the type of the key (e.g., "rsa", "dsa", "ecdsa").
+ * @return A pointer to a string containing the public key in the specified format.
+ *         The caller is responsible for freeing the allocated memory.
+ */
 char *sshkey_pub(EVP_PKEY *pkey, const char *key_type);
 
 #endif /* sshkey_h */

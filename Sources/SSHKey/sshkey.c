@@ -4,12 +4,13 @@
 
 #include "sshkey.h"
 
-/*
- * base64_encode - 将二进制数据编码为Base64字符串
- * @data: 指向要编码的数据的指针
- * @len: 数据的长度
+/**
+ * Encodes the given data in base64 format.
  *
- * 返回值: 编码后的Base64字符串，需要使用free()释放
+ * @param data The data to be encoded.
+ * @param len The length of the data to be encoded.
+ * @return A pointer to a null-terminated string containing the base64 encoded data.
+ *         The caller is responsible for freeing the allocated memory.
  */
 char *base64_encode(const unsigned char *data, int len)
 {
@@ -35,9 +36,16 @@ char *base64_encode(const unsigned char *data, int len)
     return b64text;
 }
 
-// write_ssh_string 函数用于将字符串写入到BIO对象中
-// bio: 目标BIO对象
-// str: 要写入的字符串
+/**
+ * @brief Writes a string to a BIO in SSH format.
+ *
+ * This function writes a string to a BIO (Basic Input/Output) object in the
+ * format used by SSH (Secure Shell). The string is preceded by its length,
+ * encoded as a 4-byte big-endian integer.
+ *
+ * @param bio A pointer to the BIO object where the string will be written.
+ * @param str A pointer to the null-terminated string to be written.
+ */
 void write_ssh_string(BIO *bio, const char *str)
 {
     uint32_t len = htonl(strlen(str));
@@ -45,9 +53,17 @@ void write_ssh_string(BIO *bio, const char *str)
     BIO_write(bio, str, (int)strlen(str));
 }
 
-// write_ssh_mpint 函数用于将大整数写入到BIO对象中
-// bio: 目标BIO对象
-// bn: 要写入的大整数
+/**
+ * @brief Writes a multi-precision integer (mpint) to a BIO stream.
+ *
+ * This function converts a BIGNUM to its binary representation and writes it
+ * to the provided BIO stream in the SSH mpint format. If the most significant
+ * bit of the first byte is set, an additional zero byte is prepended to ensure
+ * the integer is interpreted as positive.
+ *
+ * @param bio A pointer to the BIO stream where the mpint will be written.
+ * @param bn A pointer to the BIGNUM that will be written as an mpint.
+ */
 void write_ssh_mpint(BIO *bio, const BIGNUM *bn)
 {
     int bytes_len = BN_num_bytes(bn);
@@ -71,13 +87,16 @@ void write_ssh_mpint(BIO *bio, const BIGNUM *bn)
     free(bytes);
 }
 
-// sshkey_pub 函数根据提供的密钥类型生成相应的 SSH 公钥字符串。
-// 参数:
-//   pkey: EVP_PKEY 结构体指针，包含私钥信息。
-//   key_type: 字符串，指定要生成的公钥类型，可以是 "ssh-rsa" 或 "ssh-ed25519"。
-// 返回值:
-//   如果成功，返回一个指向生成的公钥字符串的指针。
-//   如果失败或 key_type 不支持，返回 NULL。
+/**
+ * @brief Generates the public key string for the given private key and key type.
+ *
+ * This function takes an EVP_PKEY structure representing the private key and a string
+ * representing the key type, and returns the corresponding public key string.
+ *
+ * @param pkey A pointer to an EVP_PKEY structure containing the private key.
+ * @param key_type A string representing the type of the key. Supported values are "ssh-rsa" and "ssh-ed25519".
+ * @return A string containing the public key if the key type is supported, or NULL if the key type is not supported.
+ */
 char *sshkey_pub(EVP_PKEY *pkey, const char *key_type)
 {
     if (strcmp(key_type, "ssh-rsa") == 0)
@@ -94,14 +113,19 @@ char *sshkey_pub(EVP_PKEY *pkey, const char *key_type)
     }
 }
 
-/*
- * 函数功能：将公钥二进制数据编码为SSH公钥格式
- * 参数：
- *   pubkey_bin: 公钥的二进制数据指针
- *   pubkey_len: 公钥二进制数据的长度
- *   key_type: 公钥类型，如"ssh-ed25519"
- * 返回值：
- *   成功返回编码后的SSH公钥字符串，失败返回NULL
+/**
+ * @brief Encodes a public key in SSH format and returns it as a base64 encoded string.
+ *
+ * This function takes a binary public key, its length, and the key type, and encodes it
+ * into the SSH public key format. The resulting string is base64 encoded and returned
+ * in the format "<key_type> <base64_encoded_key>\n".
+ *
+ * @param pubkey_bin A pointer to the binary public key.
+ * @param pubkey_len The length of the binary public key.
+ * @param key_type A string representing the type of the key (e.g., "ssh-rsa").
+ * @return A pointer to the encoded public key string, or NULL if an error occurs.
+ *
+ * @note The caller is responsible for freeing the returned string.
  */
 char *sshkey_encode(unsigned char *pubkey_bin, size_t pubkey_len, const char *key_type)
 {
@@ -143,8 +167,14 @@ char *sshkey_encode(unsigned char *pubkey_bin, size_t pubkey_len, const char *ke
     return ssh_public_key;
 }
 
-// sshkey_ed25519_pub 生成 ed25519 公钥的 SSH 格式字符串
-// pkey: EVP_PKEY 结构体指针，包含公钥信息
+/**
+ * Generates an SSH public key in the ssh-ed25519 format from the given EVP_PKEY.
+ *
+ * @param pkey A pointer to an EVP_PKEY structure containing the key.
+ * @return A string containing the SSH public key in the ssh-ed25519 format, or NULL on failure.
+ *
+ * The caller is responsible for freeing the returned string.
+ */
 char *sshkey_ed25519_pub(EVP_PKEY *pkey)
 {
     unsigned char *pubkey_bin = NULL;
@@ -178,8 +208,26 @@ char *sshkey_ed25519_pub(EVP_PKEY *pkey)
     return ssh_public_key;
 }
 
-// sshkey_rsa_pub 生成 rsa 公钥的 SSH 格式字符串
-// pkey: EVP_PKEY 结构体指针，包含公钥信息
+/**
+ * Generates an SSH RSA public key in the OpenSSH format.
+ *
+ * @param pkey A pointer to an EVP_PKEY structure containing the RSA key.
+ * @return A dynamically allocated string containing the SSH RSA public key in the format "ssh-rsa <base64-encoded-key>\n".
+ *         The caller is responsible for freeing the returned string. Returns NULL on failure.
+ *
+ * The function extracts the RSA key parameters (n and e) from the provided EVP_PKEY structure,
+ * encodes them in the SSH format, and then base64 encodes the result. The final string is
+ * formatted as "ssh-rsa <base64-encoded-key>\n".
+ *
+ * The function performs the following steps:
+ * 1. Extracts the RSA key parameters (n and e) from the EVP_PKEY.
+ * 2. Writes the key type ("ssh-rsa") and the key parameters to a memory BIO.
+ * 3. Base64 encodes the contents of the BIO.
+ * 4. Formats the final SSH public key string.
+ * 5. Cleans up allocated resources and returns the formatted string.
+ *
+ * If any step fails, the function performs cleanup and returns NULL.
+ */
 char *sshkey_rsa_pub(EVP_PKEY *pkey)
 {
     BIGNUM *n = NULL, *e = NULL;
