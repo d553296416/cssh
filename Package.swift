@@ -38,7 +38,7 @@ let package = Package(
         ),
         .binaryTarget(
             name: "OpenSSL",
-            path: "xcframework/CSSH.xcframework"
+            path: "xcframework/OpenSSL.xcframework"
         )
     ]
 )
