@@ -47,16 +47,14 @@
 /* We use underscore instead of dash when appending DEV in dev versions just
    to make the BANNER define (used by src/session.c) be a valid SSH
    banner. Release versions have no appended strings and may of course not
-   have dashes either. The release version (without "_DEV") is not stored in
-   the source code repo, as the version is properly set in the tarballs by the
-   maketgz script.*/
-#define LIBSSH2_VERSION                             "1.11.2_DEV"
+   have dashes either. */
+#define LIBSSH2_VERSION "1.11.1"
 
 /* The numeric version number is also available "in parts" by using these
    defines: */
-#define LIBSSH2_VERSION_MAJOR                       1
-#define LIBSSH2_VERSION_MINOR                       11
-#define LIBSSH2_VERSION_PATCH                       1
+#define LIBSSH2_VERSION_MAJOR 1
+#define LIBSSH2_VERSION_MINOR 11
+#define LIBSSH2_VERSION_PATCH 1
 
 /* This is the numeric version of the libssh2 version number, meant for easier
    parsing and comparisons by programs. The LIBSSH2_VERSION_NUM define will
@@ -73,7 +71,7 @@
    and it is always a greater number in a more recent release. It makes
    comparisons with greater than and less than work.
 */
-#define LIBSSH2_VERSION_NUM                         0x010b01
+#define LIBSSH2_VERSION_NUM 0x010b01
 
 /*
  * This is the date and time when the full source package was created. The
@@ -84,7 +82,7 @@
  *
  * "Mon Feb 12 11:35:33 UTC 2007"
  */
-#define LIBSSH2_TIMESTAMP "DEV"
+#define LIBSSH2_TIMESTAMP "Wed Oct 16 08:03:21 UTC 2024"
 
 #ifndef RC_INVOKED
 
