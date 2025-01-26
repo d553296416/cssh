@@ -18,10 +18,6 @@ let package = Package(
             targets: ["SSHKey"]
         ),
         .library(
-            name: "OpenSSL",
-            targets: ["OpenSSL"]
-        ),
-        .library(
             name: "MaxMindDB",
             targets: ["MaxMindDB"]
         ),
@@ -30,56 +26,21 @@ let package = Package(
     targets: [
         .target(
             name: "SSHKey",
-            dependencies: ["OpenSSL"]
-        ),
-        .target(
-            name: "MaxMindDB"
-        ),
-        .target(
-            name: "CSSH",
-            dependencies: ["OpenSSL"],
-            cSettings: [
-                .define("HAVE_LIBSSL"),
-                .define("HAVE_LIBZ"),
-                .define("LIBSSH2_HAVE_ZLIB"),
-                .define("LIBSSH2_OPENSSL"),
-                // .define("LIBSSH2_WOLFSSL"),
-                .define("LIBSSH2DEBUG"),
-                .define("STDC_HEADERS"),
-                .define("WORDS_BIGENDIAN"),
-                .define("HAVE_POLL"),
-                // .define("HAVE_SELECT"),
-                // .define("HAVE_SYS_SELECT_H"),
-                .define("HAVE_ALLOCA"),
-                .define("HAVE_ALLOCA_H"),
-                .define("HAVE_ARPA_INET_H"),
-                .define("HAVE_GETTIMEOFDAY"),
-                .define("HAVE_INTTYPES_H"),
-                .define("HAVE_MEMSET_S"),
-                .define("HAVE_NETINET_IN_H"),
-                .define("HAVE_O_NONBLOCK"),
-                .define("HAVE_SNPRINTF"),
-                .define("HAVE_STDIO_H"),
-                .define("HAVE_STRTOLL"),
-                .define("HAVE_SYS_IOCTL_H"),
-                .define("HAVE_SYS_PARAM_H"),
-                .define("HAVE_SYS_SOCKET_H"),
-                .define("HAVE_SYS_TIME_H"),
-                .define("HAVE_SYS_UIO_H"),
-                .define("HAVE_SYS_UN_H"),
-                .define("HAVE_UNISTD_H"),
-            ],
+            dependencies: ["CSSH"],
             linkerSettings: [
                 .linkedLibrary("z"),
             ]
+        ),
+        .target(
+            name: "MaxMindDB"
         ),
 //        .binaryTarget(
 //            name: "wolfSSL",
 //            path: "xcframework/wolfSSL.xcframework"
 //        ),
         .binaryTarget(
-            name: "OpenSSL",
-            path: "xcframework/OpenSSL.xcframework"
+            name: "CSSH",
+            path: "xcframework/CSSH.xcframework"
         ),
     ]
 )
