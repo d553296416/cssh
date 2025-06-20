@@ -41,7 +41,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#if defined(LIBSSH2_OPENSSL) || defined(LIBSSH2_WOLFSSL)
+#if defined(LIBSSH2_OPENSSL)
 #include "openssl.h"
 #elif defined(LIBSSH2_LIBGCRYPT)
 #include "libgcrypt.h"

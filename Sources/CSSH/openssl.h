@@ -45,55 +45,6 @@
 /* disable deprecated warnings in OpenSSL 3 */
 #define OPENSSL_SUPPRESS_DEPRECATED
 
-#ifdef LIBSSH2_WOLFSSL
-
-#include <wolfssl/options.h>
-#include <wolfssl/openssl/ecdh.h>
-
-#if defined(NO_DSA) || defined(HAVE_FIPS)
-#define OPENSSL_NO_DSA
-#endif
-
-#if defined(NO_MD5) || defined(HAVE_FIPS)
-#define OPENSSL_NO_MD5
-#endif
-
-#if !defined(WOLFSSL_RIPEMD) || defined(HAVE_FIPS)
-#define OPENSSL_NO_RIPEMD
-#endif
-
-#if defined(NO_RC4) || defined(HAVE_FIPS)
-#define OPENSSL_NO_RC4
-#endif
-
-#ifdef NO_DES3
-#define OPENSSL_NO_DES
-#endif
-
-/* wolfSSL doesn't support Blowfish or CAST. */
-#define OPENSSL_NO_BF
-#define OPENSSL_NO_CAST
-/* wolfSSL has no engine framework. */
-#define OPENSSL_NO_ENGINE
-
-#include <wolfssl/openssl/opensslconf.h>
-#include <wolfssl/openssl/sha.h>
-#include <wolfssl/openssl/rsa.h>
-#ifndef OPENSSL_NO_DSA
-#include <wolfssl/openssl/dsa.h>
-#endif
-#ifndef OPENSSL_NO_MD5
-#include <wolfssl/openssl/md5.h>
-#endif
-#include <wolfssl/openssl/err.h>
-#include <wolfssl/openssl/evp.h>
-#include <wolfssl/openssl/hmac.h>
-#include <wolfssl/openssl/bn.h>
-#include <wolfssl/openssl/pem.h>
-#include <wolfssl/openssl/rand.h>
-
-#else /* !LIBSSH2_WOLFSSL */
-
 #include <openssl/opensslconf.h>
 #include <openssl/sha.h>
 #include <openssl/rsa.h>
@@ -118,14 +69,10 @@
 #include <openssl/core_names.h>
 #endif
 
-#endif /* LIBSSH2_WOLFSSL */
-
 #if (OPENSSL_VERSION_NUMBER >= 0x10100000L && \
-    !defined(LIBRESSL_VERSION_NUMBER)) || defined(LIBSSH2_WOLFSSL) || \
+    !defined(LIBRESSL_VERSION_NUMBER)) || \
     (defined(LIBRESSL_VERSION_NUMBER) && \
     LIBRESSL_VERSION_NUMBER >= 0x3050000fL)
-/* For wolfSSL, whether the structs are truly opaque or not, it's best to not
- * rely on their internal data members being exposed publicly. */
 # define HAVE_OPAQUE_STRUCTS 1
 #endif
 
@@ -176,8 +123,7 @@
 #define LIBSSH2_HMAC_SHA256 1
 #define LIBSSH2_HMAC_SHA512 1
 
-#if (OPENSSL_VERSION_NUMBER >= 0x00907000L && !defined(OPENSSL_NO_AES)) || \
-    (defined(LIBSSH2_WOLFSSL) && defined(WOLFSSL_AES_COUNTER))
+#if (OPENSSL_VERSION_NUMBER >= 0x00907000L && !defined(OPENSSL_NO_AES))
 # define LIBSSH2_AES_CTR 1
 # define LIBSSH2_AES_CBC 1
 #else
@@ -185,12 +131,7 @@
 # define LIBSSH2_AES_CBC 0
 #endif
 
-/* wolfSSL v5.4.0 is required due to possibly this bug:
-   https://github.com/wolfSSL/wolfssl/pull/5205
-   Before this release, all libssh2 tests crash with AES-GCM enabled */
-#if (OPENSSL_VERSION_NUMBER >= 0x01010100fL && !defined(OPENSSL_NO_AES)) || \
-    (defined(LIBSSH2_WOLFSSL) && LIBWOLFSSL_VERSION_HEX >= 0x05004000 && \
-    defined(HAVE_AESGCM) && defined(WOLFSSL_AESGCM_STREAM))
+#if (OPENSSL_VERSION_NUMBER >= 0x01010100fL && !defined(OPENSSL_NO_AES))
 # define LIBSSH2_AES_GCM 1
 #else
 # define LIBSSH2_AES_GCM 0

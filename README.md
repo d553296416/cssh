@@ -25,11 +25,6 @@ pod 'CSSH/OpenSSL', :git => 'https://github.com/sshterm/cssh.git'
 ```
 pod 'CSSH/OpenSSLFull', :git => 'https://github.com/sshterm/cssh.git'
 ```
-# 使用 wolfSSL 版
-
-```
-pod 'CSSH/wolfSSL', :git => 'https://github.com/sshterm/cssh.git'
-```
 
 # 关于libssh2
 
@@ -38,7 +33,3 @@ https://github.com/libssh2/libssh2
 # 关于OpenSSL
 
 https://github.com/openssl/openssl
-
-# 关于wolfSSL
-
-https://github.com/wolfSSL/wolfssl

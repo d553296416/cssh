@@ -17,10 +17,6 @@ let package = Package(
             name: "SSHKey",
             targets: ["SSHKey"]
         ),
-        .library(
-            name: "MaxMindDB",
-            targets: ["MaxMindDB"]
-        ),
     ],
     dependencies: [],
     targets: [
@@ -31,13 +27,6 @@ let package = Package(
                 .linkedLibrary("z"),
             ]
         ),
-        .target(
-            name: "MaxMindDB"
-        ),
-//        .binaryTarget(
-//            name: "wolfSSL",
-//            path: "xcframework/wolfSSL.xcframework"
-//        ),
         .binaryTarget(
             name: "CSSH",
             path: "xcframework/CSSH.xcframework"
